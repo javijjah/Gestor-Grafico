@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\javil\\Desktop\\2DAM\\gigante de jagger\\práctica c#\\helloWorld\\ClaseConJavi3\\GestorGrafico\\GestorGrafico.csproj": {}
+    "C:\\Users\\javil\\Desktop\\2DAM\\gigante de jagger\\práctica c#\\helloWorld\\Gestor-Grafico\\GestorGrafico\\GestorGrafico.csproj": {}
   },
   "projects": {
-    "C:\\Users\\javil\\Desktop\\2DAM\\gigante de jagger\\práctica c#\\helloWorld\\ClaseConJavi3\\GestorGrafico\\GestorGrafico.csproj": {
+    "C:\\Users\\javil\\Desktop\\2DAM\\gigante de jagger\\práctica c#\\helloWorld\\Gestor-Grafico\\GestorGrafico\\GestorGrafico.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\javil\\Desktop\\2DAM\\gigante de jagger\\práctica c#\\helloWorld\\ClaseConJavi3\\GestorGrafico\\GestorGrafico.csproj",
+        "projectUniqueName": "C:\\Users\\javil\\Desktop\\2DAM\\gigante de jagger\\práctica c#\\helloWorld\\Gestor-Grafico\\GestorGrafico\\GestorGrafico.csproj",
         "projectName": "GestorGrafico",
-        "projectPath": "C:\\Users\\javil\\Desktop\\2DAM\\gigante de jagger\\práctica c#\\helloWorld\\ClaseConJavi3\\GestorGrafico\\GestorGrafico.csproj",
+        "projectPath": "C:\\Users\\javil\\Desktop\\2DAM\\gigante de jagger\\práctica c#\\helloWorld\\Gestor-Grafico\\GestorGrafico\\GestorGrafico.csproj",
         "packagesPath": "C:\\Users\\javil\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\javil\\Desktop\\2DAM\\gigante de jagger\\práctica c#\\helloWorld\\ClaseConJavi3\\GestorGrafico\\obj\\",
+        "outputPath": "C:\\Users\\javil\\Desktop\\2DAM\\gigante de jagger\\práctica c#\\helloWorld\\Gestor-Grafico\\GestorGrafico\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\javil\\AppData\\Roaming\\NuGet\\NuGet.Config"
