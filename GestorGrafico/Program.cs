@@ -1,6 +1,4 @@
-﻿
-
-public class EditorGrafico
+﻿public class EditorGrafico
 {
     static void Main(string[] args)
     {
@@ -11,7 +9,7 @@ public class EditorGrafico
         p1.Dibujar();
         var r1 = new Rectangulo(3, 3, 2, 2);
         r1.Dibujar();
-        r1.Mover(23,21);
+        r1.Mover(23, 21);
         r1.Dibujar();
         var c1 = new Circulo(12, 21, 4);
         c1.Dibujar();
@@ -23,14 +21,16 @@ public class EditorGrafico
         try
         {
             var p2 = new Punto(-2, 31);
-
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex);
         }
+
+        var gC1 = new GraficoCompuesto(1, 2, 4, 21, 54, 21, 3, 6, 2);
     }
-    }
+}
+
 //creamos una interfaz que incluya los métodos que después usaremos
 public interface IGrafico
 {
@@ -38,99 +38,178 @@ public interface IGrafico
 
     public void Dibujar();
 }
-//el gráficoCompuesto al final lo he dejado como una lista de gráficos que luego se procesarían sumándose, pero
-//aún no estoy seguro de cómo hacerlo, por lo que lo he dejado en este estado.
+
+//GraficoCompuesto en principio asume que será un punto, un rectángulo y un radio.
 public class GraficoCompuesto : IGrafico
 {
-    List<IGrafico> elements;
+    public GraficoCompuesto(int xPunto, int yPunto, int xRect, int yRect, int ancho,
+        int alto, int xCirc, int yCirc, int Radio)
+    {
+        //para que de un error en caso de que este se produca, lo mejor será aplicar tryCatch, ya que nos sacará
+        //directamente de la construcción del objeto.
+        try
+        {
+            var puntoCompuesto = new Punto(xPunto, yPunto);
+            var rectCompuesto = new Rectangulo(xRect, yRect, ancho, alto);
+            var circCompuesto = new Circulo(xCirc, yCirc, Radio);
+            elements.Add(puntoCompuesto);
+            elements.Add(rectCompuesto);
+            elements.Add(circCompuesto);
+            foreach (var el in elements)
+            {
+                el.Dibujar();
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Error al crear Gráfico Compuesto");
+        }
+    }
 
+    List<IGrafico> elements = new List<IGrafico>();
+    //mover aplicará el Mover() de punto sobre cada elemento directamente pero con los mismos valores
     public bool Mover(int x, int y)
     {
-        return false;
-    }
+        foreach (var el in elements)
+        {
+            bool mover;
+            mover = el.Mover(x, y);
+            if (!mover)
+            {
+                return false;
+            }
+        }
 
+        Dibujar();
+        return true;
+    }
+    //Dibujar dibujará simplemente cada elemento por separado.
     public void Dibujar()
     {
+        foreach (var el in elements)
+        {
+            el.Dibujar();
+        }
     }
 }
+
 //La clase punto será la principal de este programa, de la que heredarán los demás
 public class Punto : IGrafico
 {
     //los he atribuido como protected por un tema de herencia, para que sean más accesibles pero sin hacerlos public
-    protected int x;
-    protected int y;
+    protected int X;
+    protected int Y;
 
     public Punto(int x, int y)
     {
         //esto soltará una excepción si cualquier gráfico sale del límite
-        if (x>600||y>800||x<0||y<0)
+        if (x > 600 || y > 800 || x < 0 || y < 0)
         {
             throw new Exception("El gráfico se sale de pantalla");
         }
-        this.x = x;
-        this.y = y;
+
+        this.X = x;
+        this.Y = y;
     }
+
     //un constructor vacío
-    public Punto()
+    protected Punto()
     {
-        x = 0;
-        y = 0;
+        X = 0;
+        Y = 0;
     }
+
     //mover primero comprobará que el movimiento es legal y en caso de hacerlo lo realizará.
     //no envuelvo en else lo de abajo ya que al hacer un return abandonamos el método.
-    public bool Mover(int x, int y)
+    public virtual bool Mover(int x, int y)
     {
-            if ((this.x+x)>600||(this.x+x)<0 ||(this.y+y)>800||((this.x+x)<0))
-            {
-                return false;
-            }
-            this.x += x;
-            this.y += y;
-            return true;
+        if ((this.X + x) > 600 || (this.X + x) < 0 || (this.Y + y) > 800 || ((this.X + x) < 0))
+        {
+            return false;
+        }
+
+        this.X += x;
+        this.Y += y;
+        return true;
     }
 
     //Dibujar simplemente mostará dónde se encuentra nuestro Punto.
     //Este método deberá ser sobrecargado más adelante para poder mostrar todos los atributos necesarios.
-    public void Dibujar()
+    public virtual void Dibujar()
     {
-        Console.WriteLine("Punto en (" + x + "," + y + ")");
+        Console.WriteLine("Punto en (" + X + "," + Y + ")");
     }
 }
+
 //constructor principal
 public class Rectangulo(int x, int y, int ancho, int alto)
     : Punto(x, y)
 {
     private int ancho = ancho;
+
     private int alto = alto;
+
 //constructor vacío
-    public Rectangulo() : this(0, 0, 1, 1){}
-    
-//sobrecarga de Dibujar
-    public void Dibujar()
+    public Rectangulo() : this(0, 0, 1, 1)
     {
-        Console.WriteLine("Rectángulo de (" + x + ","+ y + ") hasta " +  "(" + x+alto + ","+ y+ancho + ")" );
+    }
+
+//sobrecarga de Dibujar
+    public override void Dibujar()
+    {
+        Console.WriteLine("Rectángulo de (" + X + "," + Y + ") hasta " + "(" + (X + alto) + "," + (Y + ancho) + ")");
     }
 }
+
 //clase círculo, solo con radio como atributo y la herencia
 public class Circulo : Punto
 {
     private int radio;
+
 //constructor base
     public Circulo(int x, int y, int radio) : base(x, y)
     {
         this.radio = radio;
     }
+
 //y constructor vacío
     public Circulo()
     {
         radio = 1;
     }
 
-   //sobrecarga de dibujar.
-    public void Dibujar()
+    //sobrecarga de dibujar.
+    public override void Dibujar()
     {
-        Console.WriteLine("Círculo de radio " + radio + " con centro en (" + x + "," + y + ")");
+        Console.WriteLine("Círculo de radio " + radio + " con centro en (" + X + "," + Y + ")");
     }
-    
-    
 }
+
+/*
+Console.WriteLine("Programa de creación de gráfico compuesto");
+Console.WriteLine("Introduzca X de su punto");
+int xPunto = Convert.ToInt32(Console.ReadLine());
+Console.WriteLine("Introduzca Y de su punto");
+int yPunto = Convert.ToInt32(Console.ReadLine());
+var puntoCompuesto = new Punto(xPunto, yPunto);
+elements.Add(puntoCompuesto);
+Console.WriteLine("Introduzca X del punto inicial de su rectángulo");
+int xRect = Convert.ToInt32(Console.ReadLine());
+Console.WriteLine("Introduzca Y del punto inicial de su rectángulo");
+int yRect = Convert.ToInt32(Console.ReadLine());
+Console.WriteLine("Introduzca ancho de su rectángulo");
+int AnchoRect = Convert.ToInt32(Console.ReadLine());
+Console.WriteLine("Introduzca alto de su rectángulo");
+int AltoRect = Convert.ToInt32(Console.ReadLine());
+var rectCompuesto = new Rectangulo(xRect, yRect, AnchoRect, AltoRect);
+elements.Add(rectCompuesto);
+Console.WriteLine("Introduzca X del punto inicial de su circunferencia");
+int xCirc = Convert.ToInt32(Console.ReadLine());
+Console.WriteLine("Introduzca Y del punto inicial de su circunferencia");
+int yCirc = Convert.ToInt32(Console.ReadLine());
+Console.WriteLine("Introduzca radio de su circunferencia");
+var radioCirc = Convert.ToInt32(Console.ReadLine());
+var circCompuesto = new Circulo(xCirc, yCirc, radioCirc);
+elements.Add(circCompuesto);
+Dibujar();
+*/
