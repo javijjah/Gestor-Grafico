@@ -107,7 +107,6 @@ public class Punto : IGrafico
         {
             throw new Exception("El gráfico se sale de pantalla");
         }
-
         this.X = x;
         this.Y = y;
     }
@@ -150,13 +149,12 @@ public class Rectangulo(int x, int y, int ancho, int alto)
     private int alto = alto;
 
 //constructor vacío
-    public Rectangulo() : this(0, 0, 1, 1)
-    {
-    }
+    public Rectangulo() : this(0, 0, 1, 1){}
 
 //sobrecarga de Dibujar
     public override void Dibujar()
     {
+        //todo sustituir todos estos WriteLine por un return con String
         Console.WriteLine("Rectángulo de (" + X + "," + Y + ") hasta " + "(" + (X + alto) + "," + (Y + ancho) + ")");
     }
 }
@@ -164,6 +162,7 @@ public class Rectangulo(int x, int y, int ancho, int alto)
 //clase círculo, solo con radio como atributo y la herencia
 public class Circulo : Punto
 {
+    //todo controlar también círculo y rectángulo con la excepción al igual que Punto
     private int radio;
 
 //constructor base
