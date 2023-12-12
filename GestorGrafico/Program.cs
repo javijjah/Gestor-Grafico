@@ -4,19 +4,19 @@
     {
         //pruebas de código
         var p1 = new Punto(1, 2);
-        p1.Dibujar();
+        Console.WriteLine(p1.Dibujar());
         p1.Mover(2, 5);
-        p1.Dibujar();
+        Console.WriteLine(p1.Dibujar());
         var r1 = new Rectangulo(3, 3, 2, 2);
-        r1.Dibujar();
+        Console.WriteLine(r1.Dibujar());
         r1.Mover(23, 21);
-        r1.Dibujar();
+        Console.WriteLine(r1.Dibujar());
         var c1 = new Circulo(12, 21, 4);
-        c1.Dibujar();
+        Console.WriteLine(c1.Dibujar());
         c1.Mover(-2, 1);
-        c1.Dibujar();
+        Console.WriteLine(c1.Dibujar());
         c1.Mover(-200, -10);
-        c1.Dibujar();
+        Console.WriteLine(c1.Dibujar());
         //con un trycatch, ya que está hecho para fallar
         try
         {
@@ -24,10 +24,11 @@
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex);
+            Console.WriteLine("Error al pintar el punto:Se sale de pantalla.");
         }
 
         var gC1 = new GraficoCompuesto(1, 2, 4, 21, 54, 21, 3, 6, 2);
+        Console.WriteLine(gC1.Dibujar());
     }
 }
 
@@ -36,7 +37,7 @@ public interface IGrafico
 {
     public bool Mover(int x, int y);
 
-    public void Dibujar();
+    public string Dibujar();
 }
 
 //GraficoCompuesto en principio asume que será un punto, un rectángulo y un radio.
@@ -84,12 +85,15 @@ public class GraficoCompuesto : IGrafico
         return true;
     }
     //Dibujar dibujará simplemente cada elemento por separado.
-    public void Dibujar()
+    public string Dibujar()
     {
+        var result = "Gráfico complejo compuesto de:\n";
         foreach (var el in elements)
         {
-            el.Dibujar();
+            result += el.Dibujar() + "\n";
         }
+
+        return result;
     }
 }
 
@@ -134,9 +138,9 @@ public class Punto : IGrafico
 
     //Dibujar simplemente mostará dónde se encuentra nuestro Punto.
     //Este método deberá ser sobrecargado más adelante para poder mostrar todos los atributos necesarios.
-    public virtual void Dibujar()
+    public virtual string Dibujar()
     {
-        Console.WriteLine("Punto en (" + X + "," + Y + ")");
+        return "Punto en (" + X + "," + Y + ")";
     }
 }
 
@@ -152,10 +156,9 @@ public class Rectangulo(int x, int y, int ancho, int alto)
     public Rectangulo() : this(0, 0, 1, 1){}
 
 //sobrecarga de Dibujar
-    public override void Dibujar()
+    public override string Dibujar()
     {
-        //todo sustituir todos estos WriteLine por un return con String
-        Console.WriteLine("Rectángulo de (" + X + "," + Y + ") hasta " + "(" + (X + alto) + "," + (Y + ancho) + ")");
+        return "Rectángulo de (" + X + "," + Y + ") hasta " + "(" + (X + alto) + "," + (Y + ancho) + ")";
     }
 }
 
@@ -178,9 +181,9 @@ public class Circulo : Punto
     }
 
     //sobrecarga de dibujar.
-    public override void Dibujar()
+    public override string Dibujar()
     {
-        Console.WriteLine("Círculo de radio " + radio + " con centro en (" + X + "," + Y + ")");
+        return "Círculo de radio " + radio + " con centro en (" + X + "," + Y + ")";
     }
 }
 

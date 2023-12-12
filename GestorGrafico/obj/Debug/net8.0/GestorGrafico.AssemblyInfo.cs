@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GestorGrafico")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ecaa3dd6b6837d8564844e1b2949ab8e1a4543d7")]
 [assembly: System.Reflection.AssemblyProductAttribute("GestorGrafico")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GestorGrafico")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
